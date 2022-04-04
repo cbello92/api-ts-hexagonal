@@ -1,3 +1,5 @@
+import { GlobalValidator } from '../../../shared/domain/entity/GlobalValidator';
+
 export class UserLastNames {
     private userLastNames: string;
     constructor(userLastNames: string) {
@@ -10,10 +12,14 @@ export class UserLastNames {
     }
 
     create(): string | never {
-        if(this.userLastNames === '' || this.userLastNames === null || this.userLastNames === undefined) {
+        if(GlobalValidator.isEmpty(this.userLastNames)) {
             throw new Error('lastnames is required');
-        } else {
-            return this.userLastNames;
+        } 
+
+        if(!GlobalValidator.ensureMaxLength(this.userLastNames, 30)) {
+            throw new Error('lastnames, can contain up to 30 characters');
         }
+
+        return this.userLastNames;
     }
 }

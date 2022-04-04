@@ -1,8 +1,9 @@
 import { CityName, CommuneName } from "../value-objects";
+import { DataEntity } from '../../../shared/domain/entity/DataEntity';
 
 export interface ICityProps {
-    city_name?: CityName | string,
-    commune_name?: CommuneName | string
+    city_name?: CityName,
+    commune_name?: CommuneName
 }
 
 export default class CityEntity {
@@ -12,7 +13,7 @@ export default class CityEntity {
     }
 
     get value() {
-        return this.props;
+        return DataEntity.mapValues<ICityProps>(this.props as Record<string, unknown>);
     }
 
     create(): unknown | never {

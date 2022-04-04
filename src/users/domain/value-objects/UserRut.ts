@@ -1,5 +1,8 @@
+import { GlobalValidator } from '../../../shared/domain/entity/GlobalValidator';
+
 export class UserRut {
     private user_rut: string;
+
     constructor(user_rut: string) {
         this.user_rut = user_rut;
         this.create();
@@ -10,10 +13,16 @@ export class UserRut {
     }
 
     create(): string | never {
-        if(this.user_rut === '' || this.user_rut === null || this.user_rut === undefined) {
+
+
+        if(GlobalValidator.isEmpty(this.user_rut)) {
             throw new Error('El user_rut es requerido');
-        } else {
-            return this.user_rut;
         }
+
+        if(!GlobalValidator.isValidRut(this.user_rut)) {
+            throw new Error('El user_rut es incorrecto');
+        }
+
+        return this.user_rut;
     }
 }

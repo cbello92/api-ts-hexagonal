@@ -1,3 +1,5 @@
+import { GlobalValidator } from '../../../shared/domain/entity/GlobalValidator';
+
 export class UserName {
     private user_name: string;
     constructor(user_name: string) {
@@ -10,10 +12,10 @@ export class UserName {
     }
 
     create(): string | never {
-        if(this.user_name === '' || this.user_name === null || this.user_name === undefined) {
+        if(GlobalValidator.isEmpty(this.user_name)) {
             throw new Error('user_name is required');
-        } else {
-            return this.user_name;
         }
+
+        return this.user_name;
     }
 }

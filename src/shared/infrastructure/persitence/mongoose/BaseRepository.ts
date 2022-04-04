@@ -42,7 +42,6 @@ export class BaseRepositoryMongoose<T, V> implements Write<T, V>, Read<T, V> {
       }
     
       update(query: FilterQuery<T>, update: UpdateQuery<T>, options?: QueryOptions): Promise<V> {
-        console.log(query, update, options);
         return new Promise<V>((resolve, reject) => {
           this._model.updateOne(query as Record<string, unknown>, update, options, (err: CallbackError, res: Document) => {
             this.responseHandler(resolve, reject, err, res);

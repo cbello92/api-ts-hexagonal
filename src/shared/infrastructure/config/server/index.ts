@@ -16,7 +16,7 @@ class App {
 
     private config(): void {
         this.server.use(express.json());
-        this.server.use(express.urlencoded());
+        this.server.use(express.urlencoded({ extended: true }));
 
         this.server.use("/api/v1", this.appRouter.buildRoutes());
         this.database.connection();

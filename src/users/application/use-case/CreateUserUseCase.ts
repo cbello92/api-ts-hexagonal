@@ -24,20 +24,20 @@ export class CreateUserUseCase implements UseCaseBase<unknown> {
             
             const bodyCity = bodyParse?.city as Record<string, unknown>;
             const city: ICityProps = {
-                city_name: new CityName(bodyCity?.city_name as string).value,
-                commune_name: new CommuneName(bodyCity?.commune_name as string).value
+                city_name: new CityName(bodyCity?.city_name as string),
+                commune_name: new CommuneName(bodyCity?.commune_name as string)
             };
 
-            const bodyForDB: IUserProps = {
-                user_rut: new UserRut(bodyParse.user_rut as string).value,
-                names: new Name(bodyParse.names as string).value,
-                last_names: new UserLastNames(bodyParse.last_names as string).value,
-                user_name: new UserName(bodyParse.user_name as string).value,
-                email: new UserEmail(bodyParse.email as string).value,
-                city: new CityEntity(city).value
+            const bodyUser: IUserProps = {
+                user_rut: new UserRut(bodyParse.user_rut as string),
+                names: new Name(bodyParse.names as string),
+                last_names: new UserLastNames(bodyParse.last_names as string),
+                user_name: new UserName(bodyParse.user_name as string),
+                email: new UserEmail(bodyParse.email as string),
+                city: new CityEntity(city)
             };
 
-            const userInstance = new UserEntity(bodyForDB);
+            const userInstance = new UserEntity(bodyUser);
             const response = await this._repository.create(userInstance.value as Record<string, unknown>);
 
             return {

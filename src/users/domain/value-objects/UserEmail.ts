@@ -1,3 +1,5 @@
+import { GlobalValidator } from '../../../shared/domain/entity/GlobalValidator';
+
 export class UserEmail {
     private user_email: string;
     constructor(user_email: string) {
@@ -5,15 +7,19 @@ export class UserEmail {
         this.create();
     }
 
-    get value() {
+    get value(): string {
         return this.user_email;
     }
 
     create(): string | never {
-        if(this.user_email === '' || this.user_email === null || this.user_email === undefined) {
+        if (GlobalValidator.isEmpty(this.user_email)) {
             throw new Error('user_email is required');
-        } else {
-            return this.user_email;
         }
+
+        if(!GlobalValidator.isValidEmail(this.user_email)) {
+            throw new Error('user_email is incorrect');
+        }
+
+        return this.user_email;
     }
 }
