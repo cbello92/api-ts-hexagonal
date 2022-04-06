@@ -2,6 +2,7 @@ import express from 'express';
 import { Application } from "express";
 import { Routes } from './routes/index';
 import { MongooseConfig } from '../mongoose/MongooseConfig';
+import { getEnvironments } from '../config';
 
 class App {
 
@@ -23,6 +24,6 @@ class App {
     }
 }
 
-export default new App().server.listen(5000, () => {
+export default new App().server.listen(getEnvironments().PORT, () => {
     console.info('Server listening!!!');
 });
