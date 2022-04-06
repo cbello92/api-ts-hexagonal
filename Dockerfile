@@ -17,6 +17,7 @@ COPY . .
 
 RUN yarn run build
 RUN rm -rf /app/src
+RUN rm /app/tsconfig.json
 
 ENV MONGODB_URL mongodb://root:admin92@databases_mongodb_1:27017/db-node?authSource=admin
 ENV PORT 5000
